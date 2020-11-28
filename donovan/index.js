@@ -1,6 +1,7 @@
 const gtfs = require('../')
 const config = require('./config.json')
 const {Client} = require('pg')
+const {DateTime} = require('luxon')
 
 async function test(){
     // client = new Client({database:'avalon'})
@@ -8,9 +9,26 @@ async function test(){
     // res = await client.query('select * from information_schema.tables;')
     // console.log(res.rows);
     gtfs.import(config)
-    client.end()
+    await client.end()
 }
-test()
+
+async function foo(){
+    const db = await gtfs.openDb(config);
+    const dt = DateTime.local().setZone('America/New_York')
+    const xday = dt.weekdayLong.toLowerCase()
+    const ymd = dt.toFormat('yyyyLLdd')
+    const query = `select distinct stops.*, calendar.* from stops left join stop_times on stops.stop_id = stop_times.stop_id left join trips on stop_times.trip_id = trips.trip_id  left join calendar on calendar.service_id = trips.service_id left join routes on trips.route_id = routes.route_id where routes.route_id = '83' and ((calendar.${xday}=1 and ${ymd} between calendar.start_date and calendar.end_date and not exists(select * from calendar_dates where calendar_dates.service_id = calendar.service_id and calendar_dates.exception_type = 2)) or exists (select * from calendar_dates where calendar_dates.service_id = calendar.service_id and calendar_dates.exception_type = 1 and date = ${ymd}));`
+    const q2 = `select distinct stops.*, calendar.* from stops left join stop_times on stops.stop_id = stop_times.stop_id left join trips on stop_times.trip_id = trips.trip_id  left join calendar on calendar.service_id = trips.service_id left join calendar_dates on calendar_dates.service_id = trips.service_id left join routes on trips.route_id = routes.route_id where routes.route_id = '83' and ((calendar.${xday}=1 and ${ymd} between calendar.start_date and calendar.end_date and calendar_dates.exception_type <> 2) or calendar_dates.exception_type = 1);`
+    const q3 = `select distinct stops.*, calendar.*,calendar_dates.* from stops left join stop_times on stops.stop_id = stop_times.stop_id left join trips on stop_times.trip_id = trips.trip_id  left join calendar on calendar.service_id = trips.service_id left join calendar_dates on calendar_dates.service_id = trips.service_id left join routes on trips.route_id = routes.route_id where routes.route_id = '83';`
+
+    const stops = await db.query(query)
+    console.log(stops.rows, query);
+    await db.end()
+}
+
+foo()
+
+// test()
 
 
 // gtfs.import(config)
