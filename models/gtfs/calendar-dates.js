@@ -3,7 +3,7 @@ module.exports = {
   schema: [
     {
       name: 'id',
-      type: 'integer',
+      type: 'serial',
       primary: true
     },
     {

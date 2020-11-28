@@ -1,3 +1,5 @@
+# pg-node-gtfs
+An adaptation of the [Node-GTFS](https://github.com/BlinkTagInc/node-gtfs/) package for use with PostgreSQL. Original README appears below.
 # Node-GTFS
 
 [![NPM version](https://img.shields.io/npm/v/gtfs.svg?style=flat)](https://www.npmjs.com/package/gtfs)
