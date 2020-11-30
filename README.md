@@ -1,5 +1,30 @@
 # pg-node-gtfs
-An adaptation of the [Node-GTFS](https://github.com/BlinkTagInc/node-gtfs/) package for use with PostgreSQL. Original README appears below.
+An adaptation of the [Node-GTFS](https://github.com/BlinkTagInc/node-gtfs/) package for use with PostgreSQL. Original README appears below, starting with the `Node-GTFS` section.
+
+This works in the same way as the original Node-GTFS package. In your config file, you will need to provide any information necessary for the [pg package](https://node-postgres.com/features/connecting#programmatic) to connect to your Postgres database in the `connection` field:
+
+```json
+{
+  "agencies": [
+    {
+      "agency_key": "mbta",
+      "url": "https://transitfeeds.com/p/mbta/64/latest/download",
+      "exclude": [
+        "shapes"
+      ]
+    }
+  ],
+  "csvOptions": {
+    "skip_lines_with_error": true
+  },
+  "connection":{
+    "database": "mbta"
+  }
+}
+```
+
+For connecting to the `mbta` database on a local machine with a blank username and no password, the key-value pair `"database": "mbta"` is sufficient as a value for the `connection` field. For conecting to a database [through a URI](https://node-postgres.com/features/connecting#connection-uri), the value for `connection` should just be the URI string.
+
 # Node-GTFS
 
 [![NPM version](https://img.shields.io/npm/v/gtfs.svg?style=flat)](https://www.npmjs.com/package/gtfs)
