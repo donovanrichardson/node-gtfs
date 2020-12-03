@@ -1,7 +1,7 @@
 {
-  "name": "gtfs",
+  "name": "pg-gtfs",
   "description": "Import GTFS transit data into SQLite and query routes, stops, times, fares and more",
-  "version": "2.1.0",
+  "version": "0.1.0",
   "keywords": [
     "transit",
     "gtfs",
@@ -43,7 +43,8 @@
     "herrBeesch",
     "Oskari Groenroos <oskari@groenroos.fi>",
     "Devin Packer",
-    "Darius MARTIN"
+    "Darius MARTIN",
+    "Donovan Richardson"
   ],
   "dependencies": {
     "@turf/helpers": "^6.1.4",
@@ -74,10 +75,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/blinktaginc/node-gtfs.git"
+    "url": "git://github.com/donovanrichardson/pg-node-gtfs.git"
   },
   "bugs": {
-    "url": "https://github.com/blinktaginc/node-gtfs/issues"
+    "url": "https://github.com/donovanrichardson/pg-node-gtfs/issues"
   },
   "bin": {
     "gtfs-import": "bin/gtfs-import.js",
