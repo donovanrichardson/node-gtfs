@@ -1,7 +1,10 @@
 const gtfs = require('../')
-const config = require('./config.json')
 const {Client} = require('pg')
 const {DateTime} = require('luxon')
+
+// const config = require('./configs/boston')
+// const config = require('./configs/pvta')
+const config = require('./configs/lirr')
 
 async function test(){
     // client = new Client({database:'avalon'})
@@ -9,7 +12,7 @@ async function test(){
     // res = await client.query('select * from information_schema.tables;')
     // console.log(res.rows);
     gtfs.import(config)
-    await client.end()
+    // await client.end()
 }
 
 async function foo(){
@@ -34,9 +37,9 @@ async function foo(){
     await db.end()
 }
 
-foo()
+// foo()
 
-// test()
+test()
 
 
 // gtfs.import(config)
