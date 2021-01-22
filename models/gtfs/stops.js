@@ -12,7 +12,8 @@ module.exports = {
     },
     {
       name: 'stop_name',
-      type: 'varchar(255)'
+      type: 'varchar(255)',
+      index: true
     },
     {
       name: 'tts_stop_name',
@@ -20,7 +21,7 @@ module.exports = {
     },
     {
       name: 'stop_desc',
-      type: 'varchar(255)'
+      type: 'text'
     },
     {
       name: 'stop_lat',
